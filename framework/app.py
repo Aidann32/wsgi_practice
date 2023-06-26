@@ -1,5 +1,15 @@
-def app(environ, start_response):
-    response_body = b'Hello world!'
-    status = "200 OK"
-    start_response(status, headers=[])
-    return iter([response_body])
+from api import API
+
+app = API()
+
+@app.route('/home')
+def home(request, response):
+    response.text = "Home page"
+
+@app.route('/about')
+def about(request, response):
+    response.text = "About page"
+
+@app.route('/greeting/{person_name}')
+def greeting(request, response, person_name):
+    response.text = f"Greetings, {person_name}"
